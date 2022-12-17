@@ -10,6 +10,7 @@ public class Store {
 
     public void showInventory(){
         clearScreen();
+
         for(int i = 0; i<7; i++){
             if(inventoryAmount[i] != 0){
                 System.out.println(Inventory[i] + ": " + inventoryAmount[i]);
@@ -37,13 +38,18 @@ public class Store {
             clearScreen();
             displayMainMenu();
         }
+
+        if (choice >7){
+            System.out.println("Invalid Item, please try again!");
+            purchaseItem();
+        }
         else{
             System.out.println("Enter the quantity: ");
             int quantity = scan.nextInt();
             clearScreen(); 
-            bill = bill + prices[choice] * quantity;
-            inventoryAmount[choice] = inventoryAmount[choice] + quantity;
-            System.out.println("Purchased " + quantity + " " + items[choice] + " for price " + prices[choice] * quantity);
+            bill = bill + prices[choice-1] * quantity;
+            inventoryAmount[choice-1] = inventoryAmount[choice-1] + quantity;
+            System.out.println("Purchased " + quantity + " " + items[choice-1] + " for price " + prices[choice-1] * quantity);
             purchaseItem();
         }
 
@@ -94,7 +100,8 @@ public class Store {
             
             case 3:
                 System.out.println("Exiting the store! Your bill is $" + bill);
-                break;
+                System.exit(0);
+
             
             default:
                 System.out.println("Invalid number entered! Try again");
